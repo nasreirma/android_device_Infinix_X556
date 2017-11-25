@@ -571,7 +571,7 @@ chmod 0660 /sys/class/misc/m_mag_misc/magactive
     chown root system /mtd@misc
 
     chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
-    chown media media /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
+    chown system mediacodec /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
 
     #mtk_sched
     chmod 0660 /dev/mtk_sched

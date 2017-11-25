@@ -123,11 +123,13 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    Snap
+    Snap \
+    guiext-server
 
 # CM14 mtk symbols
 PRODUCT_PACKAGES += \
-    mtk_symbols
+    mtk_symbols \
+    guiext-server
 
 # Power
 PRODUCT_PACKAGES += \
