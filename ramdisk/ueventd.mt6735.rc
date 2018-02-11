@@ -36,7 +36,7 @@
 
 #xiangqiu.meng modify for XLLYNHWSL-202
 # FMRadio
-/dev/fm                   0666   media     media
+/dev/fm                   0660   media     media
 
 # NFC
 /dev/msr3110              0666   root       root

@@ -675,3 +675,11 @@ service statusd /vendor/bin/statusd -f [/vendor/bin/flashlessd -m 0]
     group radio cache inet misc system
 
 #INTERNAL_END
+
+#Start add wenbo.yin 20161011 for mxc4005xc
+service memsicp /vendor/bin/memsicp
+    user system
+    group system
+    class main
+    oneshot
+#End add for mxc4005xc

@@ -327,6 +327,12 @@ on post-fs-data
     chown system system /sys/class/misc/m_baro_misc/barodelay
     chown system system /sys/class/misc/m_baro_misc/barobatch
     chown system system /sys/class/misc/m_baro_misc/baroflush
+#add by yang.li3 start
+    chmod root root /sys/class/torch/torch/torch_level
+    chmod 0666 /sys/class/torch/torch/torch_level
+    chmod root root /sys/class/sub_torch/sub_torch/sub_torch_level
+    chmod 0666 /sys/class/sub_torch/sub_torch/sub_torch_level
+#add by yang.li3 end
 
 
     #Accdet
@@ -349,6 +355,12 @@ on post-fs-data
 
     #Charging Battery
     chown radio radio /sys/devices/platform/battery/Charging_CallState
+	
+	#add by jiaqi.cai
+	chmod 0666 /sys/devices/platform/battery_meter/fg_coulomb
+    
+    #baoping.jin@reallytek.com
+    chmod 0666 /sys/devices/platform/battery/CHG_CAPACITY_TEST
 
     # PMIC property
     chown radio system /sys/devices/platform/mt-pmic/low_battery_protect_stop
@@ -466,13 +478,8 @@ on post-fs-data
 
     # FM Radio device node
     mknod /dev/fm     c 193 0;
-    chmod 0666 /dev/fm
+    chmod 0660 /dev/fm
     chown media media /dev/fm
-
-#add jinbaoping
-    chmod 0666 /sys/class/torch/torch/torch_level 
-    chmod 0666 /sys/class/sub_torch/sub_torch/sub_torch_level
-    chmod 0666 /sys/devices/platform/leds-mt65xx/leds/red/brightness
 
     # device apc settings
 
@@ -520,6 +527,8 @@ on post-fs-data
     chmod 0660 /dev/kd_camera_hw_bus2
     chmod 0660 /dev/FM50AF
     chmod 0660 /dev/CAM_CAL_DRV
+    #yang.li3
+    chmod 0660 /dev/cam_cal_drv_s5k3l8
 
     chown system camera /dev/camera-sysram
     chown system camera /dev/camera-isp
@@ -530,10 +539,12 @@ on post-fs-data
     chown system camera /dev/kd_camera_hw_bus2
     chown system camera /dev/FM50AF
     chown system camera /dev/CAM_CAL_DRV
-	#zhangpj add for camera 3rd feature begin
+    #yang.li3
+    chown system camera /dev/cam_cal_drv_s5k3l8
+    #Fandy.zhang_s
     mkdir /data/bshaders 0777 root system
     mkdir /data/lshaders 0777 root system
-	#zhangpj add for camera 3rd feature end
+    #Fandy.zhang_e
 
     #MATV
     chmod 0660 /dev/MATV
@@ -622,8 +633,13 @@ on boot
     write /proc/sys/vm/dirty_writeback_centisecs 300
     chmod 0660 /sys/power/autosleep
 
+#add by caizhaohui
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
-
+    
+    #add by caizhaohui for midtes charging
+    chmod 0664 /dev/MT_pmic_adc_cali
+    chmod 0666 /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
+    
     chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
     chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
     chown root   system /sys/kernel/debug/binder/transaction_log_enable
@@ -641,11 +657,7 @@ on boot
     chown system system /sys/class/leds/red/trigger
     chown system system /sys/class/leds/green/trigger
     chown system system /sys/class/leds/blue/trigger
-    #add jinbaoping
-    chmod 0666 /sys/class/leds/blue/brightness
-    chmod 0666 /sys/class/leds/red/brightness
-    chmod 0666 /sys/class/leds/green/brightness
-    #add jinbaoping
+
     chown system system /sys/kernel/debug/ged/hal/fps_upper_bound
     chmod 0660 /sys/kernel/debug/ged/hal/fps_upper_bound
     chown system system /sys/kernel/debug/ged/hal/vsync_offset_level
@@ -1216,18 +1228,36 @@ service memsicd /vendor/bin/memsicd
     user system
     group system
     class main
-
-#add by changzhe.wang
-service mmc3524xd  /vendor/bin/mmc3524xd
+#yinpeng.zhang
+service memsicd3524x /vendor/bin/memsicd3524x
+    disabled
     user system
     group system
     class main
+
+#add by ge.ding,XWWLNHSQY-983,20170711 start
+service qmcX983d /vendor/bin/qmcX983d
+    disabled
+    user system
+    group system
+    class main
+#add by ge.ding,XWWLNHSQY-983,20170711 end
 
 service memsicd3416x /vendor/bin/memsicd3416x
      disabled
 	 user system
     group system
     class main
+	
+#Start add wenbo.yin 20161011 for mxc4005xc
+chmod 0660 /dev/gsensor
+service memsicp /vendor/bin/memsicp
+    user system
+    group system
+    class main
+    oneshot
+#End add for mxc4005xc
+
 service akmd8975 /vendor/bin/akmd8975
     disabled
     user system
@@ -1445,11 +1475,9 @@ chmod 4755 /vendor/bin/chat
 #
 #ril-daemon (begin)
 #
-
-#add jinbaoping 
-chmod 0666 /sys/class/leds/lcd-backlight/brightness
-#add jinbaoping
-
+#infinix add by liuzhiqaing for OTG Anti-corrosion function 2070907 start
+chmod 0666 /sys/devices/platform/battery/OTG_CTL
+#infinix add by liuzhiqaing for OTG Anti-corrosion function 2070907 end
 service ril-3gddaemon /vendor/bin/rild_dongle
     class main
     socket rild-dongle stream 660 root radio
@@ -1495,15 +1523,6 @@ service program_binary /vendor/bin/program_binary_service
     group graphics
     oneshot
 
-#add by huijuan.wang for factory reset start
-service freset /system/bin/freset.sh
-    class core
-    user system
-    group cache
-    disabled
-    oneshot
-#add end
-    
 service vtservice /vendor/bin/vtservice
     class main
     socket soc_vt_tcv dgram 660 radio system
@@ -1548,4 +1567,10 @@ on property:debug.mtk.thermalindicator=0
 
 on property:debug.mtk.thermalindicator=1
 	start ThermalIndicator
-
+#miaozj add for auto recovery factory start 
+service freset /system/bin/freset.sh 
+	class core 
+	user system
+	group cache
+	disabled
+	oneshot

@@ -1,5 +1,15 @@
 mkdir /data/misc/sensors 0664 system system
 
+#add for fingerprint by wanghuijuan
+	chmod 0660 /dev/goodix_fp
+	chown system system /dev/goodix_fp
+
+service fp /system/bin/gx_fpd -m CIT
+	class main
+	user root
+	oneshot
+#end add
+
 service msensord /vendor/bin/msensord
     user system
     group system
@@ -13,11 +23,21 @@ service akmd8963 /vendor/bin/akmd8963
 
 on post-fs
 
+#   insmod /vendor/lib/modules/mtk_hif_sdio.ko
+#   insmod /vendor/lib/modules/mtk_stp_wmt.ko
+#   insmod /vendor/lib/modules/mtk_stp_uart.ko
+#   insmod /vendor/lib/modules/mtk_stp_gps.ko
+#   insmod /vendor/lib/modules/mtk_stp_bt.ko
+#   insmod /vendor/lib/modules/mtk_fm_drv.ko
+#   insmod /vendor/lib/modules/mtk_fm_priv.ko
+#   insmod /vendor/lib/modules/mtk_wmt_wifi.ko
 
+    insmod /vendor/lib/modules/mtk_wmt_detect.ko
     
  		
  
     
+    #insmod /vendor/lib/modules/wlan.ko
 
 
 on boot
