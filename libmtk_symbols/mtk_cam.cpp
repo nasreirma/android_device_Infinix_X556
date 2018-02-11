@@ -8,7 +8,7 @@
 #include <hardware/hardware.h>
 
 extern "C" {
-void _ZNK7android16CameraParameters22getPreviewCallBackSizeEPiS1_ () {
+void _ZNK7android14CameraMetadata13getTorchStateEii () {
     }
 }
 
