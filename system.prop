@@ -1,7 +1,7 @@
 #
-# system.prop for mt6753
+# system.prop for mt6737m
 #
-ro.hardware=mt6737m
+ro.hardware=mt6735
 ro.board.platform=mt6737m
 service.adb.root=1
 persist.sys.root_access=0
@@ -56,7 +56,7 @@ ro.hardware.egl=mali
 ro.mediatek.chip_ver=S01
 ro.mediatek.version.release=alps-mp-n1.mp1-V1_rlk6737m.65.n1
 ro.mediatek.version.branch=alps-mp-n1.mp1
-ro.mediatek.platform=MT6735
+ro.mediatek.platform=MT6737M
 ro.mediatek.version.sdk=4
 persist.mtk.wcn.combo.chipid=0x0335
 persist.mtk.wcn.patch.version=-1
@@ -102,7 +102,6 @@ rild.libpath=mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 ro.telephony.ril_class=MT6735
 ro.telephony.ril.config=fakeiccid
-#ro.telephony.ril.config=signalstrength
 ro.telephony.sim.count=2
 persist.radio.default.sim=0
 persist.radio.mobile.data=0,0
