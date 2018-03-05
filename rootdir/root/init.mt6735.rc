@@ -605,6 +605,12 @@ on boot
     chown bluetooth radio /dev/ttyGS2
     chmod 0660 /dev/ttyGS2
 
+
+on property:ro.board.platform=mt6737m
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 988000									
+
 on property:ro.board.platform=mt6737t
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
