@@ -17,3 +17,4 @@
 #include <string>
 
 extern "C" void _ZNK7android14ICameraService22getInterfaceDescriptorEv() {}
+extern "C" void _ZNK7android16CameraParameters22getPreviewCallBackSizeEPiS1_() {}
