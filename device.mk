@@ -298,5 +298,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libmrdump \
     mrdump_tool
-
 	
+# CM14 mtk symbols
+PRODUCT_PACKAGES += \
+    mtk_symbols
+    
