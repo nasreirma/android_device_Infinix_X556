@@ -18,3 +18,4 @@
 
 extern "C" void _ZNK7android14ICameraService22getInterfaceDescriptorEv() {}
 extern "C" void _ZNK7android16CameraParameters22getPreviewCallBackSizeEPiS1_() {}
+extern "C" void _ZN7android16CameraParameters19FRONT_CAMERA_MIRRORE() {}

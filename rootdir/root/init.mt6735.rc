@@ -12,9 +12,12 @@ on late-fs
 on early-init
     # Turn off backlight on blank
     write /sys/class/leds/lcd-backlight/trigger "backlight"
-    export LD_SHIM_LIBS "/system/lib/libcam_utils.so|/system/lib/mtk_symbols.so:/system/lib/libcam.utils.sensorlistener.so|/system/lib/libsensor.so:/system/lib/libcam.camadapter.so|/system/lib/libcamera_client.so"
-    export LD_SHIM_LIBS "/system/lib64/libcam_utils.so|/system/lib64/mtk_symbols.so:/system/lib64/libcam.utils.sensorlistener.so|/system/lib64/libsensor.so:/system/lib64/libcam.camadapter.so|/system/lib64/libcamera_client.so"
+    # export LD_SHIM_LIBS
+    export LD_PRELOAD "mtk_symbols.so"
+    export LD_SHIM_LIBS /system/lib/libcamera_client.so|mtk_symbols.so
+    export LD_SHIM_LIBS /system/lib/libcam_platform.so|mtk_symbols.so
 
+	
 on init
     # BATTERY proc
     chown shell system /proc/mtk_battery_cmd/current_cmd
