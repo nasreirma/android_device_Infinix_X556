@@ -932,7 +932,16 @@ service agpsd /system/bin/mtk_agpsd
     user gps
     group gps radio inet sdcard_r sdcard_rw misc system
 
-service mnld /vendor/bin/mnld
+service slpd /system/bin/slpd
+    class main
+    user gps
+    group gps inet
+
+service wifi2agps /system/bin/wifi2agps
+    class main
+    user wifi
+    group gps inet							 
+service mnld /system/xbin/mnld
     class main
     user gps
     group gps inet misc sdcard_rw sdcard_r media_rw system radio
@@ -966,18 +975,10 @@ service ami304d /system/bin/ami304d
     class main
 
 service memsicd3524x /system/bin/memsicd3524x
-    disabled
     user system
     group system
     class main
 
-#add by ge.ding,XWWLNHSQY-983,20170711 start
-service qmcX983d /system/bin/qmcX983d
-    disabled
-    user system
-    group system
-    class main
-#add by ge.ding,XWWLNHSQY-983,20170711 end
 service memsicd3416x /system/bin/memsicd3416x
      disabled
 	 user system
@@ -1012,6 +1013,7 @@ service bmm056d /system/bin/bmm056d
     user system
     group system
     class main
+
 service mc6420d /system/bin/mc6420d
     disabled
     user system
