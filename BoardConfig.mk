@@ -212,4 +212,4 @@ $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
 
 USE_NINJA := true
 
-BLOCK_BASED_OTA := false
+BLOCK_BASED_OTA := true
