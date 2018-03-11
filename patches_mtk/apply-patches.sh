@@ -9,6 +9,9 @@ cd ..
 cd system/sepolicy
 git apply -v ../../device/Infinix/X556/patches_mtk/system_sepolicy.patch
 cd ../..
+cd packages/apps/Settings
+git apply -v ../../../device/Infinix/X556/patches_mtk/settings.patch
+cd ../../..
 cd frameworks/av
 git apply -v ../../device/Infinix/X556/patches_mtk/frameworks_av.patch
 cd ..
