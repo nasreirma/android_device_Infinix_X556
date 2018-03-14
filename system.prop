@@ -3,7 +3,6 @@
 #
 
 # Mediatek Chip
-persist.mtk.wcn.combo.chipid=0x321
 service.wcn.driver.ready=no
 service.wcn.coredump.mode=2
 ro.mediatek.chip_ver=S01

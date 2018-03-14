@@ -16,7 +16,7 @@
 
 LOCAL_PATH := device/Infinix/X556
 
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += device/Infinix/X556/overlay
 
 # AAPT configs
 PRODUCT_AAPT_CONFIG := normal
@@ -83,6 +83,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml \
     frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf \
+    frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
+    frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/audio_em.xml:system/etc/audio_em.xml \
     $(LOCAL_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -98,7 +102,7 @@ PRODUCT_PACKAGES += \
     hostapd \
     dhcpcd.conf \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
@@ -113,10 +117,6 @@ PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
      $(LOCAL_PATH)/configs/gps/slp_conf:system/etc/slp_conf
 
-PRODUCT_PACKAGES += \
-    wifi2agps \
-    wmt_loader
-
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # FM
@@ -126,13 +126,12 @@ PRODUCT_COPY_FILES += \
 # Telephony
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ecc_list.xml:system/etc/ecc_list.xml \
-    $(LOCAL_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml
-
-PRODUCT_PACKAGES += \
-    md_ctrl
+    $(LOCAL_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml \
+    $(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
 
 # Keylayout
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/keylayout/mtk-tpd.kl:system/usr/keylayout/mtk-tpd.kl \
     $(LOCAL_PATH)/configs/keylayout/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/configs/keylayout/ACCDET.kl:system/usr/keylayout/ACCDET.kl \
     $(LOCAL_PATH)/configs/AVRCP.kl:system/usr/keylayout/AVRCP.kl
@@ -169,7 +168,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
-	frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
@@ -206,7 +205,6 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.a2dp.default.so \
     audio.r_submix.default \
     audio.usb.default \
     audio_policy.stub \
@@ -233,7 +231,8 @@ PRODUCT_PACKAGES += \
 
 # sensors
 PRODUCT_PACKAGES += \
-    libhwm
+    libhwm \
+    libnvram
 
 # memtrack
 PRODUCT_PACKAGES += \
@@ -242,18 +241,7 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.mt6737m \
-    libepos \
-    mnld \
-    libmnl \
     libcurl
-
-# BT MTK
-PRODUCT_PACKAGES += \
-    libbluetooth_mtk \
-    libbt-vendor \
-    libbluetooth_mtk_pure \
-    libbluetoothem_mtk \
-    libbluetooth_relayer
 
 # FM Radio
 PRODUCT_PACKAGES += \
@@ -262,44 +250,29 @@ PRODUCT_PACKAGES += \
     libfmjni \
     libfmcust
 
-# Fuelgauge
+# ION
 PRODUCT_PACKAGES += \
-    fuelgauged \
-    libfgauge
-	
-# NVRAM
-PRODUCT_PACKAGES += \
-    libnvram \
-    libcustom_nvram
-
-# GUI UI MTK props
-PRODUCT_PACKAGES += \
-    libgui_ext \
-    libui_ext \
-    libion_mtk \
-    libion \
-    librrc
-
-# Thermal manager
-PRODUCT_PACKAGES += \
-    thermal_manager \
-    libmtcloader \
-    libperfservicenative
+    libion
 
 # Camera
 PRODUCT_PACKAGES += \
     Snap
 
-# Browser
-PRODUCT_PACKAGES += \
-    Jelly
-
 # mrdump
 PRODUCT_PACKAGES += \
     libmrdump \
     mrdump_tool
-	
-# CM14 mtk symbols
+
+# YGPS
 PRODUCT_PACKAGES += \
-    mtk_symbols
-    
+    YGPS
+
+# EngineerMode
+PRODUCT_PACKAGES += \
+    EngineerMode
+
+# Gapps
+$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+GAPPS_VARIANT := micro
+
+

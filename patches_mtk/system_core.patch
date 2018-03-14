@@ -171,7 +171,7 @@ index d1984bd06..69fa2d747 100644
  
 +#include <cutils/properties.h>
 +#include <dlfcn.h>
-+//#include "../../../vendor/mediatek/proprietary/external/udf/ubrd_config.h"     
++//#include "../../../vendor/mediatek/proprietary/external/udf/ubrd_config.h"
 +
  int ion_open()
  {
@@ -219,7 +219,7 @@ index d1984bd06..69fa2d747 100644
          return -EINVAL;
      }
 -    *share_fd = data.fd;
-+    
++
 +/*#ifdef _MTK_ENG_
 +    if(dlsym_counter > 0 && fd_bt_rd == NULL) {
 +        dlsym_counter--;
@@ -258,7 +258,7 @@ index b7d558354..85166a691 100644
 -        close(fd);
 -        _exit(0);
 +		munmap(ptr, len);
-+		
++
 +		ret = ion_free(fd, handle);
 +		ion_close(fd);
      } else {

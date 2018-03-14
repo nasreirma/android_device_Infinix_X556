@@ -27,7 +27,8 @@
 
 #define MT_RUSH_BOOST_PATH "/proc/hps/rush_boost_enabled"
 #define MT_FPS_UPPER_BOUND_PATH "/d/ged/hal/fps_upper_bound"
-
+#define X1 "/sys/devices/mx_tsp/gesture_control"
+#define X2 "/sys/devices/mx_tsp/gesture_data"
 
 #define POWER_HINT_POWER_SAVING 0x00000101
 #define POWER_HINT_PERFORMANCE_BOOST 0x00000102
@@ -94,6 +95,19 @@ static void power_hint(struct power_module *module, power_hint_t hint,
     }
 }
 
+void set_feature(struct power_module *module, feature_t feature, int state)
+{
+#ifdef TAP_TO_WAKE_NODE
+    char tmp_str[64];
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
+        snprintf(tmp_str, 64, "%d", state);
+        ALOGE("POWER_FEATURE_DOUBLE_TAP_TO_WAKE %d\n", state);
+        power_fwrite(TAP_TO_WAKE_NODE, tmp_str);
+        return;
+    }
+#endif
+}
+
 static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
@@ -105,11 +119,12 @@ struct power_module HAL_MODULE_INFO_SYM = {
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "Mediatek Power HAL",
-        .author = "The Android Open Source Project",
+        .author = "Cyanogen",
         .methods = &power_module_methods,
     },
 
     .init = power_init,
     .setInteractive = power_set_interactive,
     .powerHint = power_hint,
+    .setFeature = set_feature,
 };

@@ -12,15 +12,7 @@ on late-fs
 on early-init
     # Turn off backlight on blank
     write /sys/class/leds/lcd-backlight/trigger "backlight"
-    # export LD_SHIM_LIBS
-    export LD_PRELOAD "mtk_symbols.so"
-    export LD_SHIM_LIBS /system/lib/libcamera_client.so|mtk_symbols.so
-    export LD_SHIM_LIBS /system/lib/libcam_platform.so|mtk_symbols.so
-    export LD_SHIM_LIBS /system/lib/libmedia.so|mtk_symbols.so
-    export LD_SHIM_LIBS /system/lib/libaudioeffect_jni.so|mtk_symbols.so
 
-
-	
 on init
     # BATTERY proc
     chown shell system /proc/mtk_battery_cmd/current_cmd
@@ -934,15 +926,6 @@ service agpsd /system/bin/mtk_agpsd
     user gps
     group gps radio inet sdcard_r sdcard_rw misc system
 
-service slpd /system/bin/slpd
-    class main
-    user gps
-    group gps inet
-
-service wifi2agps /system/bin/wifi2agps
-    class main
-    user wifi
-    group gps inet							 
 service mnld /system/xbin/mnld
     class main
     user gps

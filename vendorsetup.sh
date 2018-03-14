@@ -1,4 +1,4 @@
-add_lunch_combo lineage_X556-eng
-add_lunch_combo lineage_X556-userdebug
-add_lunch_combo lineage_X556-user
-
+# Use this to add X5566 to CM's lunch command menu
+for var in eng user userdebug; do
+  add_lunch_combo lineage_X556-$var
+done

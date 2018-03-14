@@ -27,7 +27,7 @@
     </path>
     <path name="two_in_one_speaker_output" value="turnoff">
         <kctl name="Speaker_Amp_Switch" value="Off" />
-        <kctl name="Audio_Speaker_class_Switch" value="CLASSD" />
+        <kctl name="Audio_Speaker_class_Switch" value="CALSSD" />
     </path>
    <!--speaker output-->
     <path name="speaker_output" value="turnon">

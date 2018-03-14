@@ -86,7 +86,7 @@
     </string-array>
 
     <string-array name="config_tether_wifi_regexs">
-        <item>ap\\d</item>
+        <item>ap0</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -180,11 +180,13 @@
     <!-- Enable doze mode
          ComponentName of a dream to show whenever the system would otherwise have gone to sleep. -->
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <integer name="config_screenBrightnessDoze">3</integer>
     <!-- If true, the doze component is not started until after the screen has been turned off
          and the screen off animation has been performed. -->
     <bool name="config_dozeAfterScreenOff">true</bool>
     <!-- Specifies whether to decouple the interactive state of the device from the display on/off state. -->
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_intrusiveNotificationLed">true</bool>
     <!-- Auto Power Modes is required for Doze and App Standby -->
     <bool name="config_enableAutoPowerModes">true</bool>
 
@@ -192,4 +194,15 @@
     <bool name="config_nightDisplayAvailable">true</bool>
 
     <bool name="config_supportDoubleTapWake">true</bool>
+    <!-- Configuration to support SIM contact batch operation.-->
+    <bool name="config_sim_phonebook_batch_operation">false</bool>
+
+    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveBatteryLed">true</bool>
+
+    <!-- Default color for notification LED is green. -->
+    <color name="config_defaultNotificationColor">#ff00ff00</color>
 </resources>
