@@ -1,104 +1,116 @@
 #
 # system.prop for Infinix HOT 4 Pro
 #
+ro.hardware=mt6735
+ro.board.platform=mt6737m
 
-# Mediatek Chip
-service.wcn.driver.ready=no
-service.wcn.coredump.mode=2
-ro.mediatek.chip_ver=S01
-ro.mediatek.platform=MT6737M
-ro.mediatek.version.sdk=4
-ro.mediatek.version.release=
+#
+ro.sf.lcd_density=320
+persist.sys.lcd_density=320
 
-# Telephony
-rild.libpath=/system/lib64/mtk-ril.so
-rild.libargs=-d /dev/ttyC0
-ril.specific.sm_cause=0
-ro.telephony.default_network=9
-persist.radio.multisim.config=dsds
-persist.radio.default.sim=0
-ril.flightmode.poweroffMD=1
-ril.telephony.mode=0
-ril.radiooff.poweroffMD=0
-ro.mtk_enable_md1=1
-ro.mtk_lte_support=1
-ro.telephony.ril_class=MT6735
-ro.telephony.ril.config=fakeiccid
-ro.telephony.sim.count=2
-ril.current.share_modem=2
-persist.radio.fd.counter=150
-persist.radio.fd.off.counter=50
-persist.radio.fd.r8.counter=150
-persist.radio.fd.off.r8.counter=50
+ro.opengles.version=196610
 
-ro.mtk_bt_support=1
-ro.mtk_cam_lomo_support=1
-ro.mtk_cam_mfb_support=1
-ro.mtk_cam_vfb=1
-ro.mtk_matv_analog_support=1
-ro.mtk_wapi_support=1
-ro.mtk_wappush_support=1
-
-# WIFI
-wifi.interface=wlan0
-ro.hardware=mt6737m
-mediatek.wlan.chip=CONSYS_MT6735
-mediatek.wlan.module.postfix=_consys_mt6735
-ro.mediatek.wlan.wsc=1
-ro.mediatek.wlan.p2p=1
-mediatek.wlan.ctia=0
-wifi.tethering.interface=ap0
-wifi.direct.interface=p2p0
-
-# FM
-fmradio.driver.enable=1
-
-# Audio
-ro.camera.sound.forced=0
-ro.audio.silent=0
-
-# GPS
-ro.mtk_agps_app=1
-ro.mtk_gps_support=1
-ro.mtk_omacp_support=1
-
-# USB
+# USB MTP WHQL
 ro.sys.usb.mtp.whql.enable=0
-ro.sys.usb.storage.type=mtp,adb
-ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
-ro.vold.umsdirtyratio=20
 
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
 
-# Kernel
-ro.zygote.preload.enable=0
-ro.kernel.zio=38,108,105,16
+# USB BICR function
+ro.sys.usb.bicr=no
 
-# Display
-ro.sf.lcd_density=320
-qemu.hw.mainkeys=1
-ro.opengles.version=196609
-persist.sys.force_highendgfx=true
+# USB Charge only function
+ro.sys.usb.charging.only=yes
+
+# audio
+ro.camera.sound.forced=0
+ro.audio.silent=0
+
+ro.zygote.preload.enable=0
 
 # Disable dirty region for Mali
 debug.hwui.render_dirty_regions=false
+debug.hwui.use_buffer_age=false
+ro.hardware.egl=mali
 
-# Media / DRM
+# performance
+#ro.mtk_perf_simple_start_win=1
+#ro.mtk_perf_fast_start_win=1
+#ro.mtk_perf_response_time=1
+
+ro.mediatek.chip_ver=S01
+ro.mediatek.version.release=alps-mp-n1.mp1-V1_lenovo6737m.35.n1_P68
+ro.mediatek.version.branch=alps-mp-n1.mp1
+ro.mediatek.platform=MT6737M
+ro.mediatek.version.sdk=4
+persist.mtk.wcn.combo.chipid=0x0335
+persist.mtk.wcn.patch.version=-1
+persist.mtk.wcn.fwlog.status=0
+persist.mtk.wcn.dynamic.dump=0
+service.wcn.driver.ready=no
+ro.sf.hwrotation=0
+persist.sys.scrollingcache=2
+
+# temporary enables NAV bar (soft keys)
+qemu.hw.mainkeys=1
+
+# Wifi
+mediatek.wlan.chip=CONSYS_MT6735
+mediatek.wlan.ctia=0
+mediatek.wlan.module.postfix=_consys_mt6735
+ro.mediatek.wlan.wsc=1
+ro.mediatek.wlan.p2p=1
+wifi.interface=wlan0
+wifi.direct.interface=p2p0
+##
+
+ro.mtk_gps_support=1
+persist.mtk.combo.coredump=no
 drm.service.enabled=true
-ro.mtk_oma_drm_support=1
-ro.mtk_widevine_drm_l3_support=1
+fmradio.driver.enable=1
+ro.mtk_audio_tuning_tool_ver=V1
+ro.mtk_audenh_support=1
+ro.mtk_fm_recording_support=1
+ro.mtk_dual_mic_support=1
+ro.mtk_perfservice_support=1
+ro.mtk_bt_support=1
+ro.mtk_bsp_package=1
+wfd.dummy.enable=1
 
-# Memory TRIM
-ro.sys.fw.use_trim_settings=true
-ro.sys.fw.empty_app_percent=50
-ro.sys.fw.trim_empty_percent=100
-ro.sys.fw.trim_cache_percent=100
-ro.sys.fw.trim_enable_memory=1073741824
-
-# Performance
-ro.mtk_perf_simple_start_win=1
-ro.mtk_perf_fast_start_win=1
-ro.mtk_perf_response_time=1
-dalvik.vm.checkjni=false
+# Telephony
+rild.libpath=mtk-ril.so
+rild.libargs=-d /dev/ttyC0
+ro.telephony.ril_class=MT6735
+ro.telephony.ril.config=fakeiccid
+ro.telephony.sim.count=2
+persist.radio.default.sim=0
+persist.radio.mobile.data=0,0
+persist.radio.multisim.config=dsds
+bgw.current3gband=0
+ril.external.md=0
+ril.telephony.mode=0
+persist.radio.fd.counter=150
+persist.radio.fd.off.counter=50
+persist.radio.fd.r8.counter=150
+persist.radio.fd.off.r8.counter=50
+persist.gemini.sim_num=2
+ro.gemini.smart_sim_switch=false
+ro.com.android.mobiledata=false
+ro.mtk_lte_support=1
+ro.boot.opt_lte_support=1
+ro.boot.opt_c2k_lte_mode=0
+ro.boot.opt_md1_support=5
+ro.boot.opt_md2_support=0
+ro.boot.opt_md3_support=0
+ro.boot.opt_md5_support=0
+persist.radio.mtk_ps3_rat=G
+ro.mtk_md_sbp_custom_value=0
+ro.mtk_world_phone_policy=0
+ro.mtk_fd_support=1
+ro.num_md_protocol=2
+ro.mtk_protocol1_rat_config=Lf/Lt/W/G
+ro.longcheer.sku=EMEA
+ro.longcheer.simsum=2
+ro.longcheer.thermal=1
+ro.boot.opt_eccci_c2k=0
+media.settings.xml=/vendor/etc/media_profiles.xml

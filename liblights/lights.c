@@ -70,7 +70,7 @@
 
 #include <hardware/lights.h>
 
-//#define LIGHTS_DBG_ON
+#define LIGHTS_DBG_ON
 /******************************************************************************/
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -619,8 +619,8 @@ static struct hw_module_methods_t lights_module_methods = {
  */
 struct hw_module_t HAL_MODULE_INFO_SYM = {
     .tag = HARDWARE_MODULE_TAG,
-    //.version_major = 1,
-    //.version_minor = 0,
+    .version_major = 1,
+    .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
     .name = "MTK lights Module",
     .author = "MediaTek",

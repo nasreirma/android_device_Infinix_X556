@@ -7,7 +7,7 @@
 # ==============================================
 
 type geomagneticd_exec , exec_type, file_type;
-type geomagneticd ,domain, domain_deprecated;
+type geomagneticd ,domain;
 
 # ==============================================
 # MTK Policy Rule

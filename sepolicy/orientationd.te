@@ -5,7 +5,7 @@
 # Type Declaration
 # ==============================================
 type orientationd_exec , exec_type, file_type;
-type orientationd ,domain, domain_deprecated;
+type orientationd ,domain;
 
 # ==============================================
 # MTK Policy Rule

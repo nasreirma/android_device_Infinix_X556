@@ -1,8 +1,0 @@
- [
-  {
-    "remote": "github",
-    "repository": "nasreirma/android_vendor_Infinix_X556",
-    "target_path": "vendor/Infinix/X556",
-    "branch": "LineageOS-14.1"
-  }
-] 
