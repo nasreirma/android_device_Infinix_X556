@@ -59,7 +59,7 @@ ARCH := arm
 TARGET_ARCH := arm
 KERNEL_ARCH := arm
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := woods_defconfig
+TARGET_KERNEL_CONFIG := rlk6737m_open_n_defconfig
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
 BOARD_KERNEL_OFFSET := 0x00008000
 else
