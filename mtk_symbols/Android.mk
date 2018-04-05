@@ -14,7 +14,10 @@ LOCAL_SRC_FILES := \
     mtk_fence.cpp \
     mtk_omx.cpp \
     mtk_cam.cpp \
-    mtk_ui.cpp
+    mtk_ui.cpp \
+    mtk_gps.cpp \
+	mtk_xlog.cpp \
+	mtk_audioCompat.c
 
 LOCAL_SHARED_LIBRARIES := libbinder liblog libgui libui libicuuc libicui18n libmedia
 LOCAL_MODULE := mtk_symbols
