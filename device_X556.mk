@@ -99,8 +99,8 @@ PRODUCT_PACKAGES += \
    libccci_util \
    muxreport \
    terservice \
-    libril \
-    rild
+   libril \
+   rild
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -268,7 +268,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.secure=0 \
     camera.disable_zsl_mode=1 \
     persist.service.acm.enable=0 \
-	persist.sys.usb.config=mtp,adb
+    persist.sys.usb.config=mtp,adb
+
+	
 
 # Keyhandler package
 PRODUCT_PACKAGES += \
