@@ -121,11 +121,10 @@ service audio-daemon /vendor/bin/audiocmdservice_atci
 
 
 #add for fingerprint by rulei.zhou
-service fingerprintd /system/bin/fingerprintd
+service fingerprintd /vendor/bin/fingerprintd
 	class late_start
 	user system
-    	oneshot
-		
+    oneshot	
 
 service gx_fpd /vendor/bin/gx_fpd
 	class late_start
