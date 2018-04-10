@@ -21,3 +21,4 @@ extern "C" void _ZN7android13GraphicBufferC1EjjijjP13native_handleb() {}
 extern "C" void _ZNK7android16SensorEventQueue12setEventRateEPKNS_6SensorEx() {}
 extern "C" void _ZNK7android16SensorEventQueue12enableSensorEPKNS_6SensorE() {}
 extern "C" void _ZNK7android16SensorEventQueue13disableSensorEPKNS_6SensorE() {}
+extern "C" void _ZN7android13SensorManager21getInstanceForPackageERKNS_8String16E() {}
