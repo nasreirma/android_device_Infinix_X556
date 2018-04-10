@@ -91,6 +91,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.microtrust.rc:root/init.microtrust.rc \
     $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc
+	
+# RIL
+PRODUCT_PACKAGES += \
+   android.hardware.radio@1.0 \
+   android.hardware.radio.deprecated@1.0 \
+   libccci_util \
+   muxreport \
+   terservice \
+    libril \
+    rild
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -104,6 +114,10 @@ PRODUCT_PACKAGES += \
     libtinycompress \
     libtinymix \
     libtinyxml
+
+# DRM
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -133,7 +147,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
+    android.hardware.bluetooth@1.0-service \
+    libbluetooth_mtk \
+    libbt-vendor
+
     
 # Camera HAL
 PRODUCT_PACKAGES += \
@@ -218,6 +235,12 @@ PRODUCT_PACKAGES += \
     libgui_ext \
     libui_ext
 
+# Managers
+PRODUCT_PACKAGES += \
+    hwservicemanager \
+    vndservicemanager \
+    servicemanager
+
 # Disable adb security
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.mount.fs=EXT4 \
@@ -232,6 +255,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=0
+
     
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -241,7 +265,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	media.stagefright.use-awesome=false
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
+    ro.secure=0 \
+    camera.disable_zsl_mode=1 \
+    persist.service.acm.enable=0 \
+	persist.sys.usb.config=mtp,adb
 
 # Keyhandler package
 PRODUCT_PACKAGES += \
