@@ -259,3 +259,8 @@ type ims_mode_prop, property_type, mtk_core_property_type;
 
 #=============allow EM set 3g vt property=============
 type mtk_em_3gvt_prop, property_type, mtk_core_property_type;
+
+# Fingerprint
+
+type gxfpd_fingerprint_prop, property_type;
+type rlk_fingerprint_prop, property_type;

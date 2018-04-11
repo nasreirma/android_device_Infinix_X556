@@ -239,4 +239,6 @@ type hotknot_device, dev_type;
 type irrx_device, dev_type;
 
 # Fingerprint device
-type esfp0_device, dev_type, mlstrustedobject;
+type gx_fpd_device, dev_type;
+
+

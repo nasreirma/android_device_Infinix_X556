@@ -39,7 +39,7 @@ type mtk_running_booster_service, app_api_service, system_server_service, servic
 type mtk_test_ampolicymaker_service, app_api_service, system_server_service, service_manager_type;
 
 # add for fingerprint ET3XX
-type etsd_service,                  service_manager_type;
+type gx_fpd_service, app_api_service, system_server_service, service_manager_type;
 
 # Other Services
 type mtk_crossmount_service, service_manager_type;

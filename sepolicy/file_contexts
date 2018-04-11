@@ -567,13 +567,6 @@
 #
 /data/misc/sensor.log           u:object_r:bmm050_sensor_log_file:s0
 
-# Fingerprint device
-/dev/esfp0(/.*)? u:object_r:esfp0_device:s0
-
-# aka.jiang add for fingerprint ET3XX 20160308
-/system/bin/etsd  u:object_r:etsd_exec:s0
-/dev/esfp0       u:object_r:etsd_data_file:s0
-
 #############################
 # System files
 #
@@ -639,4 +632,10 @@
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/persist           u:object_r:persist_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/system            u:object_r:system_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/metadata          u:object_r:metadata_block_device:s0
+
+#For Goodix fingerprint,add by NasreIrma
+/dev/goodix_fp*     u:object_r:gx_fpd_device:s0
+/data/system/fingerprint(/.*)?  u:object_r:gx_fpd_data_file:s0
+/persist/data/gxfp(/.*)?    u:object_r:gx_fpd_data_file:s0
+/(system\/vendor|vendor)/bin/gx_fpd  u:object_r:gx_fpd_exec:s0
 
