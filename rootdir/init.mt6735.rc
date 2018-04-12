@@ -1,5 +1,4 @@
-import init.connectivity.rc
-import init.project.rc
+import init.mt6735.usb.rc
 import init.microtrust.rc
 import init.modem.rc
 
@@ -12,10 +11,10 @@ on early-init
     chown shell system /proc/mtk_battery_cmd/current_cmd
     chown shell system /proc/mtk_battery_cmd/discharging_cmd
 
-# Temp Backward compatibility
+on init
     mkdir /protect_f 0771 system system
     mkdir /protect_s 0771 system system
-#Create nvdata mount point
+    mkdir /persist 0771 system system
     mkdir /nvdata 0771 system system
 # Create CIP mount point
     mkdir /custom
@@ -79,6 +78,14 @@ on post-fs
 
     chown system system /protect_s
     chmod 0770 /protect_s
+    
+    mkdir /nvdata/APCFG 0770 root camera
+    mkdir /nvdata/APCFG/APRDCL 0770 root camera
+    mkdir /nvdata/APCFG/APRDEB 0770 root camera
+    mkdir /nvdata/md     0770 system radio
+    mkdir /nvdata/md_cmn 0770 system radio
+    mkdir /nvdata/media  0770 media audio
+    restorecon_recursive /nvdata
 
 on post-fs-data
     write /proc/bootprof "INIT:post-fs-data"
@@ -88,12 +95,13 @@ on post-fs-data
     # We chown/chmod /nvdata again so because mount is run as root + defaults
     chown root system /nvdata
     chmod 0771 /nvdata
+    rm /data/nvram
     symlink /nvdata /data/nvram
     mkdir /nvdata/media 0771 media audio
 
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /nvdata
-	restorecon /data/nvram
+    restorecon /data/nvram
 
     chmod 0660 /data/misc/wifi/p2p_supplicant.conf
 
@@ -175,9 +183,20 @@ on post-fs-data
     #set mlock limit to infinate (for m4u operation)
     setrlimit 8 -1 -1
 
+    # BT
+    #chmod 0660 /dev/stpbt
+    #chown bluetooth bluetooth /dev/stpbt
+    chown bluetooth bluetooth /dev/ampc0
+    chmod 0660 /dev/ampc0
+
     # CMDQ
     chmod 0640 /dev/mtk_cmdq
     chown system system /dev/mtk_cmdq
+
+    # Wifi
+    mknod /dev/wmtWifi c 153 0
+    chmod 0660 /dev/wmtWifi
+    chown wifi wifi /dev/wmtWifi
 
     #OFFLOAD SERVICE
     chmod 0640 /dev/offloadservice
@@ -190,6 +209,53 @@ on post-fs-data
     chmod 0660 /dev/als_ps
     chmod 0660 /dev/gyroscope
     chmod 0660 /dev/aal_als
+
+
+
+#Camera
+    chmod 0660 /dev/MAINAF
+    chown system camera /dev/MAINAF
+
+    chmod 0660 /dev/MAINAF2
+    chown system camera /dev/MAINAF2
+
+    chmod 0660 /dev/SUBAF
+    chown system camera /dev/SUBAF
+
+    chmod 0660 /dev/GAF001AF
+    chown system camera /dev/GAF001AF
+
+    chmod 0660 /dev/DW9714AF
+    chown system camera /dev/DW9714AF
+
+    chmod 0660 /dev/AD5820AF
+    chown system camera /dev/AD5820AF
+
+	chmod 0660 /dev/BU64745GWZAF
+    chown system camera /dev/BU64745GWZAF
+
+#SMB
+    chown system system /proc/smb/ScreenComm
+    chmod 0660 /proc/smb/ScreenComm
+
+#add for fingerprint by rulei.zhou
+	chmod 0660 /dev/goodix_fp
+	chown system system /dev/goodix_fp
+	chmod 0666 /dev/madev0
+    chown system system /dev/madev0
+	mkdir /data/system/ma_fingerprint	0700  system  system
+	mkdir /data/system/fingerprint		0700  system  system
+	
+#sunwave fingerprint, add by achang.zhang
+	chmod 0666 /dev/sunwave_fp
+	chown system system /dev/sunwave_fp
+	chmod 775 /system/vendor/lib/sunwave/[fP]*
+
+#Define device for ATCID
+    chmod 660 /dev/ttyGS0
+    chown system /dev/ttyGS0
+    chmod 660 /dev/ttyGS1
+    chown system /dev/ttyGS1
 
     chmod 0660 /sys/devices/platform/msensor/driver/cpsopmode
     chmod 0660 /sys/devices/platform/msensor/driver/cpsreptxy
@@ -412,7 +478,7 @@ on post-fs-data
     chown root diag /sys/bus/platform/drivers/eint/current_eint
 
     # for ppp options file
-    mkdir /data/misc/ppp 0770 bluetooth net_bt
+    mkdir /data/misc/ppp 0770 bluetooth bluetooth
 
     # for libipsec_ims
     mkdir /data/misc/setkey 0770 root system
@@ -435,7 +501,7 @@ on post-fs-data
     chown root system /dev/devmap
 
     # bluetooth
-    mkdir /data/@btmtk 0770 bluetooth net_bt
+    mkdir /data/@btmtk 0770 bluetooth bluetooth
     chown bluetooth bluetooth /data/@btmtk/host_cache
     chown bluetooth bluetooth /data/@btmtk/dev_cache
     chown bluetooth bluetooth /dev/hid-keyboard
@@ -671,10 +737,13 @@ on boot
     chmod 0660 /dev/ttyGS3
 
 #Define device for ATCID
-    chmod 660 /dev/ttyGS0
-    chown system /dev/ttyGS0
-    chmod 660 /dev/ttyGS1
-    chown system /dev/ttyGS1
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+# BT relayer mode USB VCOM
+    chown bluetooth radio /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
+
 
 
 on property:ro.board.platform=mt6753
@@ -701,100 +770,10 @@ on property:ro.board.platform=mt6753
 on property:persist.uartconsole.enable=1
     write /proc/mtprintk 1
 
-service mobile_log_d /vendor/bin/mobile_log_d
-    class main
+on property:persist.service.atci.usermode=1
+    setprop persist.sys.usb.config mass_storage,adb,acm
 
-service mmedialogstart /vendor/bin/mobile_log_d --ftrace mmedia
-    oneshot
-    disabled
-
-service bsplogstart /vendor/bin/mobile_log_d --ftrace bsp
-    oneshot
-    disabled
-
-service trace_buf_off /vendor/bin/mobile_log_d --ftrace off
-    oneshot
-    disabled
-
-# ftrace log buffer control
-on property:ftrace.buffer.log=mmedia
-    start mmedialogstart
-
-on property:ftrace.buffer.log=bsp
-    start bsplogstart
-
-on property:ftrace.buffer.log=off
-    start trace_buf_off
-
-# MTK PR_DEBUG SWITCH
-on property:debug.MB.prdebug=1
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* +p"
-    write /sys/kernel/debug/dynamic_debug/control "file *gpu* -p"
-on property:debug.MB.prdebug=0
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
-
-service met_log_d /vendor/bin/met_log_d
-    class main
-
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
-# start ged_srv
 on property:sys.boot_completed=1
-    start ged_srv
-
-service ged_srv /vendor/bin/ged_srv
-    class core
-    user system
-    group system readproc
-    disabled
-
-service netdiag /vendor/bin/netdiag
-    class main
-
-service sysenv_daemon /vendor/bin/sysenv_daemon
-    class main
-    user system
-    group system
-    oneshot
-
-service atci_service /vendor/bin/atci_service
-    class core
-    socket atci-service stream 660 radio system
-    socket atci-serv-fw stream 660 radio system
-    user root
-    disabled
-    group radio system
-
-service atcid-daemon-u /vendor/bin/atcid
-    class main
-    socket adb_atci_socket stream 660 radio system
-    user system
-    group radio system media
-    disabled
-    oneshot
-
-service atcid-daemon-e /vendor/bin/atcid
-    class core
-    socket adb_atci_socket stream 660 radio system
-    user root
-    group radio system
-    disabled
-    oneshot
-
-on property:ro.build.type=eng
-start atci_service
-start atcid-daemon-e
-
-on property:persist.service.atci.autostart=1
-start atci_service
-start atcid-daemon-u
-
 service audio-daemon /vendor/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
@@ -812,91 +791,6 @@ service aal /vendor/bin/aal
     user system
     group system graphics radio
 
-# FOTA upgrade
-service rbfota /vendor/bin/fota1
-    class main
-    disabled
-    oneshot
-
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    user dhcp
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class main
-    user dhcp
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcp_inform /system/bin/dhcpcd -s -BK -A
-    class main
-    user root
-    group system radio dhcp net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpv6_inform /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
-    class main
-    user root
-    group system radio dhcp net_admin net_raw
-    disabled
-    oneshot
-
-service dhcp6cDNS_wlan0 /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
-    disabled
-    oneshot
-
-service dhcp6c_wlan0 /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
-    disabled
-    oneshot
-
-on property:service.dhcp6c_wlan0.enable=0
-    stop dhcp6c_wlan0
-
-on property:service.dhcp6c_wlan0.enable=1
-    start dhcp6c_wlan0
-
-service dhcp6c_PD /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
-    disabled
-    oneshot
-
-service pppoe_wlan0 /vendor/bin/launchpppoe
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-on property:service.pppoe_wlan0.enable=0
-    stop pppoe_wlan0
-
-on property:service.pppoe_wlan0.enable=1
-    start pppoe_wlan0
 # write proc for test sim
     on property:gsm.sim.ril.testsim=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
@@ -1236,3 +1130,15 @@ setprop rild.mark_switchuser 0
 
 chown root /system/bin/pppd
 chmod 4755 /system/bin/pppd
+
+#add for fingerprint by rulei.zhou
+service fingerprintd /vendor/bin/fingerprintd
+	class late_start
+	user system
+    oneshot	
+
+service gx_fpd /vendor/bin/gx_fpd
+	class late_start
+	user root
+	oneshot
+	

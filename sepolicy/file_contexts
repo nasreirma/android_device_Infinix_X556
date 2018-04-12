@@ -632,6 +632,8 @@
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/persist           u:object_r:persist_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/system            u:object_r:system_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/metadata          u:object_r:metadata_block_device:s0
+/dev/block/mmcblk0 						u:object_r:bootdevice_block_device:s0
+
 
 #For Goodix fingerprint,add by NasreIrma
 /dev/goodix_fp*     u:object_r:gx_fpd_device:s0

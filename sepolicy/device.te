@@ -156,6 +156,7 @@ type hrm_device, dev_type;
 type lens_device, dev_type;
 type nvdata_device, dev_type;
 type nvcfg_device, dev_type;
+type bootdevice_block_device, dev_type;
 type expdb_block_device, dev_type;
 type misc2_block_device, dev_type;
 type logo_block_device, dev_type;

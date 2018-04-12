@@ -18,7 +18,6 @@ binder_call(gx_fpd, fingerprintd);
 allow gx_fpd fingerprintd_service:service_manager find;
 
 binder_call(fingerprintd, gx_fpd);
-allow fingerprintd gx_fpd_service:service_manager find;
 allow fingerprintd gx_fpd_lib_file:file r_file_perms;
 allow fingerprintd gx_fpd_lib_file:file { getattr read  };
 allow fingerprintd gx_fpd_lib_file:chr_file { r_file_perms setattr };
