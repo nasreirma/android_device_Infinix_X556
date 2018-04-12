@@ -340,7 +340,6 @@
 # block partition definitions
 /dev/block/mmcblk0boot0 u:object_r:preloader_block_device:s0
 /dev/block/mmcblk0boot1 u:object_r:preloader_block_device:s0
-/dev/block/mmcblk0 u:object_r:mmcblk0_block_device:s0
 /dev/block/mmcblk1 u:object_r:mmcblk1_block_device:s0
 /dev/block/mmcblk1p1 u:object_r:mmcblk1p1_block_device:s0
 /dev/block/mtd(.*)?     u:object_r:mtd_device:s0

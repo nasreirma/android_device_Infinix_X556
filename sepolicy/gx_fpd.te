@@ -24,7 +24,6 @@ allow fingerprintd gx_fpd_lib_file:chr_file { r_file_perms setattr };
 allow fingerprintd gx_fpd_device:chr_file {read write setattr open};
 
 # add self
-allow gx_fpd gx_fpd_service:service_manager { add find };
 allow gx_fpd self:process execmem;
 allow gx_fpd self:capability { dac_override dac_read_search fsetid };
 allow gx_fpd kernel:system module_request;
