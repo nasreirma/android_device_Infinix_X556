@@ -1,6 +1,8 @@
 # inherit from the proprietary version
 -include vendor/Infinix/X556/BoardConfigVendor.mk
 
+# Dont build seperate vendor img
+TARGET_COPY_OUT_VENDOR := system/vendor
 
 # Disable NINJA
 #USE_NINJA := false
@@ -91,6 +93,7 @@ TARGET_CPU_MEMCPY_OPT_DISABLE := true
 # Flags
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+BOARD_GLOBAL_CFLAGS += -DMTK_HARDWARE
 
 # Charger
 WITH_LINEAGE_CHARGER := false
@@ -104,7 +107,6 @@ TARGET_SENSORS_DEVICE_API_VERSION := SENSORS_DEVICE_API_VERSION_1_1
 # RIL
 BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL := true
-BOARD_CONNECTIVITY_MODULE := conn_soc
 
 # Display
 BOARD_EGL_CFG := /vendor/Infinix/X556/vendor/lib/egl/egl.cfg
@@ -180,11 +182,9 @@ EXTENDED_FONT_FOOTPRINT := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 #BOARD_HAVE_BLUETOOTH_MTK := true
-#BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
+BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
 #BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/Infinix/X556/bluetooth
-
-TARGET_LDPRELOAD += mtk_symbols.so
 
 # CWM
 TARGET_RECOVERY_FSTAB := device/Infinix/X556/rootdir/recovery.fstab
@@ -215,3 +215,14 @@ BOARD_SEPOLICY_DIRS := \
 
 #HIDL
 DEVICE_MANIFEST_FILE := device/Infinix/X556/hidl/manifest.xml
+
+# LIBSHIMS
+
+LIBSHIM_XLOG_SYMBOLS :=true  
+LIBSHIM_SND_SYMBOLS := true  
+LIBSHIM_UI_SYMBOLS := true  
+LIBSHIM_GUI_SYMBOLS := true  
+LIBSHIM_OMX_SYMBOLS := true  
+LIBSHIM_BIONIC_SYMBOLS := true
+LIBSHIM_AGPS_SYMBOLS := true  
+LIBSHIM_ATOMIC_SYMBOLS := true  
