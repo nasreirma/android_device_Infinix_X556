@@ -30,7 +30,6 @@ ril_shared_libs := \
     librilutils \
     mtk-ril \
     android.hardware.radio@1.0 \
-    android.hardware.radio@1.1 \
     android.hardware.radio.deprecated@1.0 \
     libhidlbase  \
     libhidltransport \
@@ -39,17 +38,21 @@ ril_shared_libs := \
 ril_inc := external/nanopb-c \
     $(LOCAL_PATH)/../include
 
-ril_cflags := -Wno-unused-parameter -DANDROID_SIM_COUNT_2 -DANDROID_MULTI_SIM -DMTK_HARDWARE
+ril_cflags := -Wno-unused-parameter -DANDROID_SIM_COUNT_2 -DANDROID_MULTI_SIM
+
+ifeq ($(BOARD_USES_MTK_HARDWARE),true)
+  ril_cflags += -DMTK_HARDWARE
+endif
 
 # something wrong, cause channel occupied after oNewCommandConnect
 # workaround but not complete yet
-ifeq ($(BOARD_USES_RIL_UNSOL_PENDING),true)
+ifeq ($(BOARD_USES_RIL_UNSOL_PENDING_,true)
   ril_cflags += -DRIL_UNSOL_PENDING
 endif
 
 # queuing request when channel busy
 # emulate the enqueue action but not fully working yet
-ifeq ($(BOARD_USES_RIL_CHANNEL_QUEUING),true)
+ifeq ($(BOARD_USES_RIL_CHANNEL_QUEUING_,true)
   ril_cflags += -DRIL_CHANNEL_QUEUING
 endif
 

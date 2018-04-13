@@ -95,8 +95,8 @@ PRODUCT_PACKAGES += \
    android.hardware.radio@1.0 \
    android.hardware.radio.deprecated@1.0 \
    libccci_util \
-   muxreport \
-   terservice
+   librilmtk \
+   mtkrild
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -105,11 +105,13 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
     audio.a2dp.default \
     audio.r_submix.default \
+    audio.usb.default \
     libaudio-resampler \
     libtinyalsa \
     libtinycompress \
     libtinymix \
-    libtinyxml
+    libtinyxml \
+    SoundRecorder
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -277,7 +279,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	media.stagefright.use-awesome=false
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.secure=0 \
+    ro.adb.secure=0 \
     camera.disable_zsl_mode=1 \
     persist.service.acm.enable=0 \
     persist.sys.usb.config=mtp,adb
