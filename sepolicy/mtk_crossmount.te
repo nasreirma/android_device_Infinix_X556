@@ -1,13 +1,14 @@
 # ==============================================
-# Policy File of /system/binpoad Executable File 
+# Policy File of /system/app/CrossMount Executable File
 
+# permissive mtk_crossmount;
 
 # ==============================================
 # Type Declaration
 # ==============================================
 
-type poad_exec , exec_type, file_type;
-type poad ,domain;
+type mtk_crossmount_exec , exec_type, file_type;
+type mtk_crossmount ,domain;
 
 # ==============================================
 # Android Policy Rule
@@ -21,6 +22,10 @@ type poad ,domain;
 # MTK Policy Rule
 # ==============================================
 
+init_daemon_domain(mtk_crossmount)
 
-init_daemon_domain(poad)
+binder_use(mtk_crossmount)
+binder_call(mtk_crossmount, mtk_crossmount)
+binder_service(mtk_crossmount)
 
+allow mtk_crossmount mtk_crossmount_service:service_manager { add find };
