@@ -1,0 +1,38 @@
+mkdir /data/misc/sensors 0664 system system
+
+#add for fingerprint by wanghuijuan
+	chmod 0660 /dev/goodix_fp
+	chown system system /dev/goodix_fp
+
+service fp /system/bin/gx_fpd -m CIT
+	class main
+	user root
+	oneshot
+#end add
+
+service msensord /vendor/bin/msensord
+    user system
+    group system
+    oneshot
+
+service akmd8963 /vendor/bin/akmd8963
+    disabled
+    user system
+    group system
+
+
+on post-fs
+
+
+    
+ 		
+ 
+    
+
+
+on boot
+
+
+
+
+
