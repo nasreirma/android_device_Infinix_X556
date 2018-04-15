@@ -176,12 +176,11 @@ $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
 
 # Add for FP
 ifeq ($(strip $(FINGERPRINT_GOODIX_SUPPORT_GF368M)), yes)
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/fingerprint.default.so:system/lib64/hw/fingerprint.mt6737m.so
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gxfingerprint.default.so:system/lib64/hw/gxfingerprint.mt6737m.so
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfp_client.so:system/lib64/libfp_client.so
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfpservice.so:system/lib64/libfpservice.so
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libalgoandroid.so:system/lib64/libalgoandroid.so
-PRODUCT_COPY_FILES += vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gx_fpd:system/bin/gx_fpd
-PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
+PRODUCT_COPY_FILES += \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/fingerprint.default.so:system/lib64/hw/fingerprint.default.so \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gxfingerprint.default.so:system/lib64/hw/gxfingerprint.default.so \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfp_client.so:system/lib64/libfp_client.so \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfpservice.so:system/lib64/libfpservice.so \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libalgoandroid.so:system/lib64/libalgoandroid.so \
+	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gx_fpd:system/bin/gx_fpd
 endif
-
