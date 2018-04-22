@@ -26,6 +26,9 @@ set_prop(msensord, ctl_geomagneticd_prop)
 set_prop(msensord, ctl_orientationd_prop)
 set_prop(msensord, ctl_istd8303_prop)
 set_prop(msensord, ctl_st480_prop)
+#add for mag
+allow msensord ctl_memsicd3524x_prop:property_service set;
+
 # ==============================================
 # Policy File of /system/binmsensord Executable File
 

@@ -89,6 +89,9 @@ type wmt_prop, property_type, mtk_core_property_type;
 
 #=============allow sensor==============
 type ctl_msensord_prop, property_type;
+#add for mag
+type ctl_memsicd3524x_prop, property_type;
+#add eng
 type ctl_s62xd_prop, property_type;
 type ctl_akmd8963_prop, property_type;
 type ctl_akmd09911_prop, property_type;
