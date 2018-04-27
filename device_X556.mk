@@ -130,7 +130,6 @@ PRODUCT_PACKAGES += \
 # CM14 mtk symbols
 PRODUCT_PACKAGES += \
     mtk_symbols \
-    guiext-server
 
 # Power
 PRODUCT_PACKAGES += \
