@@ -27,6 +27,8 @@ extern "C" {
 
     void _ZN7android11AudioSystem25freeVoiceUnlockDLInstanceEv(){}
 
+	void _ZN7android12AudioPCMxWayD1Ev(){}
+
     bool _ZN7android11AudioSystem17stopVoiceUnlockDLEv(){
         return 0;
     }
