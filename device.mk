@@ -19,7 +19,7 @@ LOCAL_PATH := device/Infinix/X556
 DEVICE_PACKAGE_OVERLAYS += device/Infinix/X556/overlay
 
 # AAPT configs
-PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_CONFIG := normal xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # Bootanimation
