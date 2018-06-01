@@ -684,6 +684,16 @@ service netdiag /system/bin/netdiag
     class main
     socket netdiag stream 0664 root inet
 
+# start ged_srv
+on property:sys.boot_completed=1
+    start ged_srv
+
+service ged_srv /system/bin/ged_srv
+    class core
+    user system
+    group system readproc
+    disabled
+
 service nvram_daemon /system/bin/nvram_daemon
     class main
     user root
@@ -1056,6 +1066,12 @@ service fuelgauged /system/bin/fuelgauged
     user system
     group system
 
+# GuiExt Server init
+service guiext-server /system/bin/guiext-server
+    class main
+    user system
+    group system graphics
+
 service wmtLoader /system/bin/wmt_loader
     user root
     group root
@@ -1067,3 +1083,30 @@ service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
     group system
     class core
 
+
+# Fingerprint
+ chmod 0666 /dev/esfp0
+    chown system system /dev/esfp0
+
+
+
+
+# Fingerprint
+service etsd /system/bin/etsd
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user root
+
+service gx_fpd /system/bin/gx_fpd
+    class late_start
+    user root
+    group root system
+
+#sunwave fingerprint
+service fp /system/bin/fpserver
+    class main
+    user root
+#sunwave fingerprint
+#goodix finger (begin)
+chmod 0660 /dev/goodix_fp
+chown system system /dev/goodix_fp
